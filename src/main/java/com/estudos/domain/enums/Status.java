@@ -1,13 +1,13 @@
-package com.estudos.domin.enums;
+package com.estudos.domain.enums;
 
-public enum Prioridade {
+public enum Status {
 
-	BAIXA(0, "ROLE_BAIXA"), MEDIA(1, "ROLE_MEDIA"), ALTA(2, "ROLE_ALTA");
+	ABERTO(0, "ROLE_ABERTO"), ANDAMENTO(1, "ROLE_ANDAMENTO"), ENCERRADO(2, "ROLE_ENCERRADO");
 
 	private Integer codigo;
 	private String descricao;
 
-	private Prioridade(Integer codigo, String descricao) {
+	private Status(Integer codigo, String descricao) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 	}
@@ -28,17 +28,17 @@ public enum Prioridade {
 		this.descricao = descricao;
 	}
 
-	public static Prioridade toEnumStatus(Integer codigo) {
+	public static Status toEnumStatus(Integer codigo) {
 		if (codigo == null) {
 			return null;
 		}
 
-		for (Prioridade p : Prioridade.values()) {
-			if (codigo.equals(p.getCodigo())) {
-				return p;
+		for (Status s : Status.values()) {
+			if (codigo.equals(s.getCodigo())) {
+				return s;
 			}
 		}
 
-		throw new IllegalArgumentException("Prioridade inválida");
+		throw new IllegalArgumentException("Status inexistente");
 	}
 }

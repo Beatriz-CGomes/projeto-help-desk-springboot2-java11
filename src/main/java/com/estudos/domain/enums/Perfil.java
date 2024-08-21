@@ -1,4 +1,4 @@
-package com.estudos.domin.enums;
+package com.estudos.domain.enums;
 
 public enum Perfil {
 
