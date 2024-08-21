@@ -4,30 +4,52 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import com.estudos.domain.enums.Prioridade;
 import com.estudos.domain.enums.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+@Entity
 public class Chamado implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataAbertura = LocalDate.now();
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataFechamento;
+	
+	
 	private Prioridade prioridade;
 	private Status status;
 	private String titulo;
 	private String observacoes;
 
+	@ManyToOne
+	@JoinColumn(name = "tecnico_id")
 	private Tecnico tecnico;
-	private Cliente cliete;
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 
 	public Chamado() {
 		super();
 	}
 
 	public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Tecnico tecnico,
-			Cliente cliete) {
+			Cliente cliente) {
 		super();
 		this.id = id;
 		this.prioridade = prioridade;
@@ -35,7 +57,7 @@ public class Chamado implements Serializable {
 		this.titulo = titulo;
 		this.observacoes = observacoes;
 		this.tecnico = tecnico;
-		this.cliete = cliete;
+		this.cliente = cliente;
 	}
 
 	public Integer getId() {
@@ -102,12 +124,12 @@ public class Chamado implements Serializable {
 		this.tecnico = tecnico;
 	}
 
-	public Cliente getCliete() {
-		return cliete;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setCliete(Cliente cliete) {
-		this.cliete = cliete;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
