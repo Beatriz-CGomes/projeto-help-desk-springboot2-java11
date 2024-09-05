@@ -1,4 +1,4 @@
-package com.estudos.domain;
+package com.estudos.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -16,7 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.estudos.domain.enums.Perfil;
+import com.estudos.model.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity

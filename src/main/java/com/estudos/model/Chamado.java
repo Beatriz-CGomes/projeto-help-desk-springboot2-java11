@@ -1,4 +1,4 @@
-package com.estudos.domain;
+package com.estudos.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.estudos.domain.enums.Prioridade;
-import com.estudos.domain.enums.Status;
+import com.estudos.model.enums.Prioridade;
+import com.estudos.model.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity

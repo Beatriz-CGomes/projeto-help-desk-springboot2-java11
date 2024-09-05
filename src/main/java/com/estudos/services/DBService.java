@@ -5,12 +5,12 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.estudos.domain.Chamado;
-import com.estudos.domain.Cliente;
-import com.estudos.domain.Tecnico;
-import com.estudos.domain.enums.Perfil;
-import com.estudos.domain.enums.Prioridade;
-import com.estudos.domain.enums.Status;
+import com.estudos.model.Chamado;
+import com.estudos.model.Cliente;
+import com.estudos.model.Tecnico;
+import com.estudos.model.enums.Perfil;
+import com.estudos.model.enums.Prioridade;
+import com.estudos.model.enums.Status;
 import com.estudos.repositories.ChamadoRepository;
 import com.estudos.repositories.ClienteRepository;
 import com.estudos.repositories.TecnicoRepository;

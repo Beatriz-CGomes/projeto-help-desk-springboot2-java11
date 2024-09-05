@@ -1,4 +1,4 @@
-package com.estudos.domain.enums;
+package com.estudos.model.enums;
 
 public enum Prioridade {
 
@@ -16,16 +16,8 @@ public enum Prioridade {
 		return codigo;
 	}
 
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
-	}
-
 	public String getDescricao() {
 		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 
 	public static Prioridade toEnumStatus(Integer codigo) {
