@@ -25,6 +25,7 @@ public class TecnicoDTO implements Serializable {
 
 	public TecnicoDTO() {
 		super();
+		addPerfil(Perfil.CLIENTE);
 	}
 
 	public TecnicoDTO(Tecnico tecnicoObj) {
@@ -36,6 +37,7 @@ public class TecnicoDTO implements Serializable {
 		this.senha = tecnicoObj.getSenha();
 		this.perfis = tecnicoObj.getPerfils().stream().map(perfil -> perfil.getCodigo()).collect(Collectors.toSet());
 		this.dataCricao = tecnicoObj.getDataCricao();
+		addPerfil(Perfil.CLIENTE);
 	}
 
 	public Integer getId() {
@@ -79,10 +81,10 @@ public class TecnicoDTO implements Serializable {
 	}
 
 	public Set<Perfil> getPerfis() {
-		return perfis.stream().map(perfil -> Perfil.toEnum(perfil)).collect(Collectors.toSet());
+	    return perfis.stream().map(Perfil::toEnum).collect(Collectors.toSet());
 	}
 
-	public void setPerfis(Perfil perfil) {
+	public void addPerfil(Perfil perfil) {
 		this.perfis.add(perfil.getCodigo());
 	}
 
