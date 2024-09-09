@@ -29,7 +29,7 @@ public abstract class Pessoa implements Serializable {
 	protected Integer id;
 	protected String nome;
 	
-	@Column(unique = true)
+	@Column(unique = true)//essa anotação é para indicar que a coluna será unica no banco
 	protected String cpf;
 	
 	@Column(unique = true)
@@ -37,8 +37,8 @@ public abstract class Pessoa implements Serializable {
 	protected String senha;
 	
 	@ElementCollection(fetch = FetchType.EAGER) //aqui é dando uma segurança para vir a lista de perfil com o usuario
-	@CollectionTable(name = "Perfis")
-	protected Set<Integer> perfils = new HashSet<>();
+	@CollectionTable(name = "Perfis")//criando uma coleção de tabela com os perfis
+	protected Set<Integer> perfis = new HashSet<>();
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCricao = LocalDate.now();
@@ -99,11 +99,11 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public Set<Perfil> getPerfils() {
-		return perfils.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
 
 	public void addPerfil(Perfil perfil) {
-		this.perfils.add(perfil.getCodigo());
+		this.perfis.add(perfil.getCodigo());
 	}
 
 	public LocalDate getDataCricao() {
