@@ -3,6 +3,8 @@ package com.estudos.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +52,14 @@ public class TecnicoService {
 			throw new InvalidDataAccessResourceUsageException("E-mail já cadastrado no sistema");
 		}
 
+	}
+
+	public Tecnico put(Integer id, @Valid TecnicoDTO dto) {
+		dto.setId(id);
+		Tecnico objTecnico = findById(id);
+		validaPorCpfEEmail(dto);
+		objTecnico = new Tecnico(dto);
+		return tecnicoRepository.save(objTecnico);
 	}
 
 }
