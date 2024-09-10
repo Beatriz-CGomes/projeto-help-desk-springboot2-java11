@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.estudos.model.Pessoa;
@@ -60,6 +61,16 @@ public class TecnicoService {
 		validaPorCpfEEmail(dto);
 		objTecnico = new Tecnico(dto);
 		return tecnicoRepository.save(objTecnico);
+	}
+
+	public void delete(Integer id) {
+		Tecnico objTecnico = findById(id);
+		if(objTecnico.getChamados().size() > 0) {
+			throw new DataIntegrityViolationException("Técnico possui ordens de serviço e não pode ser deletado!");
+		} else {
+			tecnicoRepository.deleteById(id);
+		}
+		
 	}
 
 }
