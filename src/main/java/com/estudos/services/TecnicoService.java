@@ -31,7 +31,7 @@ public class TecnicoService {
 		return tecnicoObj.orElseThrow(() -> new ObjectNotFoundExceptions("Objeto não encontrado! Id: " + id));
 	}
 
-	public List<Tecnico> findById() {
+	public List<Tecnico> findAll() {
 		return tecnicoRepository.findAll();
 	}
 

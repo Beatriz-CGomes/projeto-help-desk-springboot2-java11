@@ -34,12 +34,11 @@ public class TecnicoController {
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
 		Tecnico tecnicoObj = tecnicoService.findById(id);
 		return ResponseEntity.ok().body(new TecnicoDTO(tecnicoObj));
-
 	}
 
 	@GetMapping
 	public ResponseEntity<List<TecnicoDTO>> findAll() {
-		List<Tecnico> listTecnico = tecnicoService.findById();
+		List<Tecnico> listTecnico = tecnicoService.findAll();
 		List<TecnicoDTO> listDTO = listTecnico.stream().map(obj -> new TecnicoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
