@@ -1,5 +1,8 @@
 package com.estudos.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,4 +27,11 @@ public class ChamadoController {
 		return ResponseEntity.ok().body(new ChamadoDTO(obj));
 	}
 
+	@GetMapping
+	public ResponseEntity<List<ChamadoDTO>> findAll() {
+		List<Chamado> listChamado = chamadoService.findAll();
+		List<ChamadoDTO> listChamadoDTO = listChamado.stream().map(obj -> new ChamadoDTO())
+				.collect(Collectors.toList());
+		return ResponseEntity.ok().body(listChamadoDTO);
+	}
 }
