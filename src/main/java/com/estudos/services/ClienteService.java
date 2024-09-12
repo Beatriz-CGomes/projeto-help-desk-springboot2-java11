@@ -3,6 +3,8 @@ package com.estudos.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -60,6 +62,13 @@ public class ClienteService {
 		if (objPessoa.isPresent() && objPessoa.get().getId() != objDTO.getId()) {
 			throw new InvalidDataAccessResourceUsageException("E-mail já cadastrado no sistema");
 		}
+	}
 
+	public Cliente put(Integer id, @Valid ClienteDTO clienteDTO) {
+		clienteDTO.setId(id);
+		Cliente clienteObj = findById(id);
+		validaPorCpfEEmail(clienteDTO);
+		clienteObj = new Cliente(clienteDTO);
+		return clienteRepository.save(clienteObj);
 	}
 }
