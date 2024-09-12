@@ -8,8 +8,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.estudos.model.Cliente;
+import com.estudos.model.Pessoa;
+import com.estudos.model.dtos.ClienteDTO;
 import com.estudos.repositories.ClienteRepository;
 import com.estudos.repositories.PessoaRepository;
+import com.estudos.services.exceptions.InvalidDataAccessResourceUsageException;
 import com.estudos.services.exceptions.ObjectNotFoundExceptions;
 
 @Service
@@ -36,6 +39,26 @@ public class ClienteService {
 			throw new DataIntegrityViolationException("Técnico possui ordens de serviço e não pode ser deletado!");
 		} else {
 			clienteRepository.deleteById(id);
+		}
+	}
+
+	public Cliente post(ClienteDTO clienteDTO) {
+		clienteDTO.setId(null);
+		validaPorCpfEEmail(clienteDTO);
+		Cliente clienteNovo = new Cliente(clienteDTO);
+		return clienteRepository.save(clienteNovo);
+
+	}
+
+	private void validaPorCpfEEmail(ClienteDTO objDTO) {
+		Optional<Pessoa> objPessoa = pessoaRepository.findByCpf(objDTO.getCpf());
+		if (objPessoa.isPresent() && objPessoa.get().getId() != objDTO.getId()) {
+			throw new InvalidDataAccessResourceUsageException("CPF já cadastrado no sistema");
+		}
+
+		objPessoa = pessoaRepository.findByEmail(objDTO.getEmail());
+		if (objPessoa.isPresent() && objPessoa.get().getId() != objDTO.getId()) {
+			throw new InvalidDataAccessResourceUsageException("E-mail já cadastrado no sistema");
 		}
 
 	}

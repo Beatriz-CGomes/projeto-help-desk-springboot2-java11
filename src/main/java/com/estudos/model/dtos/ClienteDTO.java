@@ -35,15 +35,15 @@ public class ClienteDTO implements Serializable {
 		addPerfil(Perfil.CLIENTE);
 	}
 
-	public ClienteDTO(Cliente tecnicoObj) {
+	public ClienteDTO(Cliente clienteDTO) {
 		super();
-		this.id = tecnicoObj.getId();
-		this.nome = tecnicoObj.getNome();
-		this.cpf = tecnicoObj.getCpf();
-		this.email = tecnicoObj.getEmail();
-		this.senha = tecnicoObj.getSenha();
-		this.perfis = tecnicoObj.getPerfils().stream().map(perfil -> perfil.getCodigo()).collect(Collectors.toSet());
-		this.dataCricao = tecnicoObj.getDataCricao();
+		this.id = clienteDTO.getId();
+		this.nome = clienteDTO.getNome();
+		this.cpf = clienteDTO.getCpf();
+		this.email = clienteDTO.getEmail();
+		this.senha = clienteDTO.getSenha();
+		this.perfis = clienteDTO.getPerfils().stream().map(perfil -> perfil.getCodigo()).collect(Collectors.toSet());
+		this.dataCricao = clienteDTO.getDataCricao();
 		addPerfil(Perfil.CLIENTE);
 	}
 
