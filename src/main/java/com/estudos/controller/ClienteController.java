@@ -4,9 +4,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +49,7 @@ public class ClienteController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ClienteDTO> post(@Validated @RequestBody ClienteDTO clienteDTO) {
+	public ResponseEntity<ClienteDTO> post(@Valid @RequestBody ClienteDTO clienteDTO) {
 		Cliente newCliente = clienteService.post(clienteDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newCliente.getId())
 				.toUri();
@@ -56,7 +57,7 @@ public class ClienteController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ClienteDTO> put(@PathVariable Integer id, @Validated @RequestBody ClienteDTO clienteDTO) {
+	public ResponseEntity<ClienteDTO> put(@PathVariable Integer id, @Valid @RequestBody ClienteDTO clienteDTO) {
 		Cliente clienteObj = clienteService.put(id, clienteDTO);
 		return ResponseEntity.ok().body(new ClienteDTO(clienteObj));
 	}
