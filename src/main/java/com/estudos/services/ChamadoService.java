@@ -1,7 +1,10 @@
 package com.estudos.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +51,10 @@ public class ChamadoService {
 		if (chamadoObj.getId() != null) {
 			chamado.setId(chamadoObj.getId());
 		}
+		
+		if(chamadoObj.getStatus().equals(2)) {
+			chamado.setDataFechamento(LocalDate.now());
+		}
 
 		chamado.setTecnico(tecnico);
 		chamado.setCliente(cliente);
@@ -57,5 +64,12 @@ public class ChamadoService {
 		chamado.setObservacoes(chamadoObj.getObservacoes());
 		return chamado;
 
+	}
+
+	public Chamado put(Integer id, @Valid ChamadoDTO chamadoDTO) {
+		chamadoDTO.setId(id);
+		Chamado oldChamado = findById(id);
+		oldChamado =  chamadoNovo(chamadoDTO);
+		return chamadoRepository.save(oldChamado);
 	}
 }
