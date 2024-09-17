@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.estudos.model.Cliente;
@@ -26,6 +27,9 @@ public class ClienteService {
 	@Autowired
 	private PessoaRepository pessoaRepository;
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	public Cliente findById(Integer id) {
 		Optional<Cliente> clienteObj = clienteRepository.findById(id);
 		return clienteObj.orElseThrow(() -> new ObjectNotFoundExceptions("Objeto não encontrado! Id: " + id));
@@ -46,6 +50,7 @@ public class ClienteService {
 
 	public Cliente post(ClienteDTO clienteDTO) {
 		clienteDTO.setId(null);
+		clienteDTO.setSenha(encoder.encode(clienteDTO.getSenha()));
 		validaPorCpfEEmail(clienteDTO);
 		Cliente clienteNovo = new Cliente(clienteDTO);
 		return clienteRepository.save(clienteNovo);

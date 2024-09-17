@@ -3,6 +3,7 @@ package com.estudos.services;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.estudos.model.Chamado;
@@ -26,16 +27,19 @@ public class DBService {
 
 	@Autowired
 	private ChamadoRepository chamadoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	public void instanciaDB() {
-		Tecnico tec1 = new Tecnico(null, "Valdir Cesar", "53342075031", "valdir@email.com", "senha123");
+		Tecnico tec1 = new Tecnico(null, "Valdir Cesar", "53342075031", "valdir@email.com",  encoder.encode("senha123"));
 		tec1.addPerfil(Perfil.ADMIN);
 
-		Tecnico tec2 = new Tecnico(null, "Beatriz Gomes", "63474894064", "beatriz@email.com", "senha123");
+		Tecnico tec2 = new Tecnico(null, "Beatriz Gomes", "63474894064", "beatriz@email.com", encoder.encode("senha123"));
 		tec2.addPerfil(Perfil.TECNICO);
 
-		Cliente cli1 = new Cliente(null, "Rosa Maria", "39631856003", "rosamaria@email.com", "senha123");
-		Cliente cli2 = new Cliente(null, "Theo Gomes", "42540748082", "theo@email.com", "senha123");
+		Cliente cli1 = new Cliente(null, "Rosa Maria", "39631856003", "rosamaria@email.com",encoder.encode("senha123"));
+		Cliente cli2 = new Cliente(null, "Theo Gomes", "42540748082", "theo@email.com", encoder.encode("senha123"));
 
 		Chamado chamado1 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 01", "Primeiro chamado", tec1,
 				cli1);
