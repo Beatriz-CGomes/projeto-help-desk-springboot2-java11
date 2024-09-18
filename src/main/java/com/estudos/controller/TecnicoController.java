@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +43,7 @@ public class TecnicoController {
 		return ResponseEntity.ok().body(listDTO);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<TecnicoDTO> post(@Valid @RequestBody TecnicoDTO objDTO) {
 		Tecnico newObj = tecnicoService.post(objDTO);
@@ -49,12 +51,14 @@ public class TecnicoController {
 		return ResponseEntity.created(uri).build();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<TecnicoDTO> put(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO dto) {
 		Tecnico objTecnico = tecnicoService.put(id, dto);
 		return ResponseEntity.ok().body(new TecnicoDTO(objTecnico));
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<TecnicoDTO> delete(@PathVariable Integer id) {
 		tecnicoService.delete(id);
